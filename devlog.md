@@ -28,9 +28,17 @@ Wikipedia [has one](https://en.wikipedia.org/wiki/Letter_frequency).
 
 Probably best to do least-squares difference (i.e. `(actual freq - expected freq) ^^2` for each letter, summed). But let's see if linear works because that doesn't require keeping count of all the letters, only the total sum.
 
-Nah, that didn't really work; the fifth-best result was
+Nah, that didn't really work; the fifth-best result was this.
 
-````
+```
 (1.3834, b'cOOKING\x00mc\x07S\x00LIKE\x00A\x00POUND\x00OF\x00BACON')
-```. Try least-squares.
-````
+```
+
+Try least-squares. Still not great. I think the spaces in the text are screwing up the percentages. google `ascii frequency table`. https://opendata.stackexchange.com/a/7043 gives all 128 chars. OK, that table worked much better.
+
+```
+$ python code.py
+[Candidate(msg=b"Cooking MC's like a pound of bacon", key=88, score=0.030906742394673607),
+ Candidate(msg=b'\x9b\xb7\xb7\xb3\xb1\xb6\xbf\xf8\x95\x9b\xff\xab\xf8\xb4\xb1\xb3\xbd\xf8\xb9\xf8\xa8\xb7\xad\xb6\xbc\xf8\xb7\xbe\xf8\xba\xb9\xbb\xb7\xb6', key=128, score=0.06350430711846337),
+ Candidate(msg=b'\x9a\xb6\xb6\xb2\xb0\xb7\xbe\xf9\x94\x9a\xfe\xaa\xf9\xb5\xb0\xb2\xbc\xf9\xb8\xf9\xa9\xb6\xac\xb7\xbd\xf9\xb6\xbf\xf9\xbb\xb8\xba\xb6\xb7', key=129, score=0.06350430711846337),
+```
