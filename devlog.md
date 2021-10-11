@@ -51,6 +51,12 @@ what? oh. [wiki](https://en.wikipedia.org/wiki/Etaoin_shrdlu)
 
 > It is the approximate order of frequency of the 12 most commonly used letters in the English language.
 
-## Exercise 4
+## Exercise 4: 300 single-char xors
 
-Code it. worked first try.
+Code it. worked first try. Took a few seconds to run lol. My python is slow.
+
+## Exercise 5: Implement repeating-key XOR
+
+Lol, defensive programming; I already did the repeating the shorter string because `zip()` stops early otherwise.
+
+Done. I used to use a firewall called BlackIce. Lmao. That was before Windows had a firewall and also before NAT.

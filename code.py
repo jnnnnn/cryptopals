@@ -52,10 +52,10 @@ def bestxor(s: bytes):
     return candidates[0]
 
 
-candidates = [bestxor(unhex(line))
-              for line in open('data-ex4.txt', 'r').read().splitlines()]
-candidates.sort(key=lambda c: c.score)
-print(candidates[:10])
-# I won
-# [bestxor.<locals>.Candidate(msg=b'Now that the party is jumping\n', key=53, score=0.02120839000259131),
-#  bestxor.<locals>.Candidate(msg=b"\xd98\x07\x1ad\nt$ \x104 \x0c'\t d\xda\xde,c\x100rtuo6\x15%", key=51, score=0.0378388115645021)
+plain = """Burning 'em, if you ain't quick and nimble
+I go crazy when I hear a cymbal"""
+
+key = "ICE"
+
+cipher = xor(plain.encode('utf-8'), key.encode('utf-8'))
+print(jhex(cipher))
