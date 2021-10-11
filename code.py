@@ -1,5 +1,8 @@
+from dataclasses import dataclass
 import codecs
 import itertools
+import collections
+import pprint
 
 
 def jhex(bytes: bytes):
@@ -22,17 +25,30 @@ englishfreqs = {'A': 0.082, 'B': 0.015, 'C': 0.028, 'D': 0.043, 'E': 0.13, 'F': 
 
 def freqscore(s, freqs):
     score = 0
-    letters = codecs.decode(s, encoding='utf-8', errors='ignore')
+    letters = codecs.decode(s, encoding='utf-8', errors='replace')
+    counts = collections.defaultdict(int)
     for letter in letters.upper():
-        if letter in freqs:
-            score += freqs[letter]
+        counts[letter] += 1
+    for letter in freqs:
+        score += (freqs[letter] - counts[letter] / len(letters)) ** 2
     return score
 
 
-msg = unhex(
+ctext = unhex(
     '1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736')
 
-results = sorted([(freqscore(xor(msg, bytes([key])), englishfreqs), xor(msg, bytes([key])))
-                  for key in range(256)])
 
-print(results[-5:])
+@dataclass
+class Candidate:
+    msg: str
+    key: int
+    score: float
+
+
+candidates = [Candidate(score=0, key=key, msg=xor(ctext, bytes([key])))
+              for key in range(256)]
+for c in candidates:
+    c.score = freqscore(c.msg, englishfreqs)
+best = sorted([c for c in candidates],
+              key=lambda c: c.score)[:10]
+pprint.pprint(best)
