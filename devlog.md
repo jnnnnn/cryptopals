@@ -1,4 +1,6 @@
-# Cryptopals: Matasono Cryptography Exercises.
+# Cryptopals: Matasano Cryptography Exercises.
+
+https://cryptopals.com
 
 ## Set 1: Qualifiers
 
@@ -13,3 +15,7 @@
 Search google: `python convert hex to base64`. Find [this answer](https://stackoverflow.com/a/42230475/412529).
 
 Write code. `python code.py`. Prints the answer. done.
+
+### Exercise 2: XOR
+
+Write function. I already know that python's XOR operator is `|`. Test code. Uh, I mean `^` lol. OK, it works.
