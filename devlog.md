@@ -19,3 +19,18 @@ Write code. `python code.py`. Prints the answer. done.
 ### Exercise 2: XOR
 
 Write function. I already know that python's XOR operator is `|`. Test code. Uh, I mean `^` lol. OK, it works.
+
+### Exercise 3: XOR decrypt (single char key)
+
+Text suggests computing letter frequency. google `english letter character frequency table`.
+
+Wikipedia [has one](https://en.wikipedia.org/wiki/Letter_frequency).
+
+Probably best to do least-squares difference (i.e. `(actual freq - expected freq) ^^2` for each letter, summed). But let's see if linear works because that doesn't require keeping count of all the letters, only the total sum.
+
+Nah, that didn't really work; the fifth-best result was
+
+````
+(1.3834, b'cOOKING\x00mc\x07S\x00LIKE\x00A\x00POUND\x00OF\x00BACON')
+```. Try least-squares.
+````
