@@ -37,21 +37,25 @@ def freqscore(s, freqs=asciicharfreqs):
     return score
 
 
-ctext = unhex(
-    '1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736')
+def bestxor(s: bytes):
+    @dataclass
+    class Candidate:
+        msg: str
+        key: int
+        score: float
+
+    candidates = [Candidate(score=0, key=key, msg=xor(s, bytes([key])))
+                  for key in range(256)]
+    for c in candidates:
+        c.score = freqscore(c.msg)
+    candidates.sort(key=lambda c: c.score)
+    return candidates[0]
 
 
-@dataclass
-class Candidate:
-    msg: str
-    key: int
-    score: float
-
-
-candidates = [Candidate(score=0, key=key, msg=xor(ctext, bytes([key])))
-              for key in range(256)]
-for c in candidates:
-    c.score = freqscore(c.msg)
-best = sorted([c for c in candidates],
-              key=lambda c: c.score)[:10]
-pprint.pprint(best)
+candidates = [bestxor(unhex(line))
+              for line in open('data-ex4.txt', 'r').read().splitlines()]
+candidates.sort(key=lambda c: c.score)
+print(candidates[:10])
+# I won
+# [bestxor.<locals>.Candidate(msg=b'Now that the party is jumping\n', key=53, score=0.02120839000259131),
+#  bestxor.<locals>.Candidate(msg=b"\xd98\x07\x1ad\nt$ \x104 \x0c'\t d\xda\xde,c\x100rtuo6\x15%", key=51, score=0.0378388115645021)

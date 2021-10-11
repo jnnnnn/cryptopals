@@ -42,3 +42,15 @@ $ python code.py
  Candidate(msg=b'\x9b\xb7\xb7\xb3\xb1\xb6\xbf\xf8\x95\x9b\xff\xab\xf8\xb4\xb1\xb3\xbd\xf8\xb9\xf8\xa8\xb7\xad\xb6\xbc\xf8\xb7\xbe\xf8\xba\xb9\xbb\xb7\xb6', key=128, score=0.06350430711846337),
  Candidate(msg=b'\x9a\xb6\xb6\xb2\xb0\xb7\xbe\xf9\x94\x9a\xfe\xaa\xf9\xb5\xb0\xb2\xbc\xf9\xb8\xf9\xa9\xb6\xac\xb7\xbd\xf9\xb6\xbf\xf9\xbb\xb8\xba\xb6\xb7', key=129, score=0.06350430711846337),
 ```
+
+> Achievement Unlocked
+>
+> You now have our permission to make "ETAOIN SHRDLU" jokes on Twitter.
+
+what? oh. [wiki](https://en.wikipedia.org/wiki/Etaoin_shrdlu)
+
+> It is the approximate order of frequency of the 12 most commonly used letters in the English language.
+
+## Exercise 4
+
+Code it. worked first try.
