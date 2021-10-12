@@ -70,3 +70,7 @@ Done. I used to use a firewall called BlackIce. Lmao. That was before Windows ha
 I'm excited.
 
 Computing hamming distance between two byte arrays. Google for `bit difference python`. nothing helpful. google `count number of different bits python`. ah, [perfect](https://stackoverflow.com/questions/9829578/fast-way-of-counting-non-zero-bits-in-positive-integer). The `bin()` function returns the bit representation as a string, then strings have a `count` function that we can use to count the 1s. If we xor the two arrays together, then every time there's a difference the Xor result will have a `1` at that position.
+
+implementing the repeating key part.
+
+load base64 file. google `python load base64 file`. [result](https://www.kite.com/python/examples/3422/base64-decode-a-%60base64%60-file). copy/paste lmao.

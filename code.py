@@ -2,7 +2,6 @@ from dataclasses import dataclass
 import codecs
 import itertools
 import collections
-import pprint
 
 
 def jhex(bytes: bytes):
@@ -56,5 +55,22 @@ def hammingdist(b1s: bytes, b2s: bytes):
     return sum(bin(n).count("1") for n in xor(b1s, b2s))
 
 
-print(hammingdist(b"this is a test", b"wokka wokka!!!"))
-# 37. yay.
+def crackXorRepeat(cipher: bytes):
+    nh, keysize = 1e10, 1
+    for ks in range(2, min(40, len(cipher)//4)):
+        block1 = cipher[0:ks]
+        block2 = cipher[ks:ks*2]
+        nicer = hammingdist(block1, block2) / ks
+        if nicer < nh:
+            nh, keysize = nicer, ks
+    print(f"Best keysize is {keysize}")
+
+
+def loadbase64file(fname: str):
+    import base64
+    with open(fname, "r") as f:
+        return base64.b64decode(f.read())
+
+
+cipher = loadbase64file('data-ex6.txt')
+crackXorRepeat(cipher)
