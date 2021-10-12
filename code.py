@@ -72,8 +72,6 @@ def crackXorRepeat(cipher: bytes):
                                    for i in range(keyindex, len(cipher), keysize)])
             bestguess = bestxor(partcipher)
             key += bytes([bestguess.key])
-            print(f"Bestguess for keychar {keyindex} is {bestguess.msg}")
-
         print(f"Best key guess is {key}")
 
 
@@ -84,4 +82,5 @@ def loadbase64file(fname: str):
 
 
 cipher = loadbase64file('data-ex6.txt')
-crackXorRepeat(cipher)
+print(xor(cipher, b'Terminator X: Bring the noise').decode(
+    'utf-8', errors='replace'))
