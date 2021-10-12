@@ -80,3 +80,14 @@ ok, best key guess is 5. but that didn't work. Meh. try every keysize. ah, there
     Best key guess is b'Terminator X: Bring the noise'
 
 done.
+
+## Exercise 7: AES
+
+Ugh, aes in python is a pain. What's the library these days? google `python aes library`. Choices seem to include:
+1. Pycryptodome (first google link)
+2. Cryptography (recommended by [stackoverflow](https://stackoverflow.com/questions/25261647/python-aes-encryption-without-extra-module))
+3. Pycrypto (official docs used to recommend)
+
+I'm going to go with stackoverflow's recommendation. Create requirements.txt.
+
+    py -m pip install -r requirements.txt
