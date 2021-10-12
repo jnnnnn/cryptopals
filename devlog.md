@@ -97,3 +97,5 @@ I'm going to go with stackoverflow's recommendation. Create requirements.txt.
 OK, need to decrypt AES. check [library docs](https://cryptography.io/en/latest/) for example code. Oh, bugger. It doesn't support ECB, only CBC. ok, uninstall. google `python aes ecb`. stackoverflow has [a good example](https://stackoverflow.com/questions/67265485/python-aes-ecb-mode-with-crypto). What is the package called? google `python aes`. pycryptodome [example](https://pycryptodome.readthedocs.io/en/latest/src/cipher/aes.html) is the same as the stackoverflow answer. ok. installation [says](https://pycryptodome.readthedocs.io/en/latest/src/installation.html) `pip install pycryptodome`. cool. Get error.
 
     TypeError: object of type 'EcbMode' has no len()
+
+derp, called `cipher` and `ciphertext` the same variable name. fixed. working.
