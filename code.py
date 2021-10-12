@@ -52,9 +52,9 @@ def bestxor(s: bytes):
     return candidates[0]
 
 
-b1s = b"this is a test"
-b2s = b"wokka wokka!!!"
+def hammingdist(b1s: bytes, b2s: bytes):
+    return sum(bin(n).count("1") for n in xor(b1s, b2s))
 
-hammingdist = sum(bin(n).count("1") for n in xor(b1s, b2s))
-print(hammingdist)
+
+print(hammingdist(b"this is a test", b"wokka wokka!!!"))
 # 37. yay.
