@@ -67,12 +67,14 @@ def crackXorRepeat(cipher: bytes):
 
     for keysize in range(2, 40):
         key = b''
+        niceness = 0
         for keyindex in range(keysize):
             partcipher = b"".join([cipher[i:i+1]
                                    for i in range(keyindex, len(cipher), keysize)])
             bestguess = bestxor(partcipher)
             key += bytes([bestguess.key])
-        print(f"Best key guess is {key}")
+            niceness += bestguess.score / keysize
+        print(f"Best key guess is {key} (score: {niceness})")
 
 
 def loadbase64file(fname: str):
@@ -81,6 +83,10 @@ def loadbase64file(fname: str):
         return base64.b64decode(f.read())
 
 
-cipher = loadbase64file('data-ex6.txt')
-print(xor(cipher, b'Terminator X: Bring the noise').decode(
-    'utf-8', errors='replace'))
+cipher = loadbase64file('data-ex7.txt')
+
+from Crypto.Cipher import AES
+key = b'YELLOW SUBMARINE'
+cipher = AES.new(key, AES.MODE_ECB)
+plaintext = cipher.decrypt(cipher)
+print(plaintext)
