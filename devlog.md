@@ -60,3 +60,13 @@ Code it. worked first try. Took a few seconds to run lol. My python is slow.
 Lol, defensive programming; I already did the repeating the shorter string because `zip()` stops early otherwise.
 
 Done. I used to use a firewall called BlackIce. Lmao. That was before Windows had a firewall and also before NAT.
+
+## Exercise 6: Break repeating-key XOR
+
+> It is officially on, now.
+>
+> Breaking repeating-key XOR ("Vigenere") statistically is obviously an academic exercise, a "Crypto 101" thing. But more people "know how" to break it than can actually break it, and a similar technique breaks something much more important.
+
+I'm excited.
+
+Computing hamming distance between two byte arrays. Google for `bit difference python`. nothing helpful. google `count number of different bits python`. ah, [perfect](https://stackoverflow.com/questions/9829578/fast-way-of-counting-non-zero-bits-in-positive-integer). The `bin()` function returns the bit representation as a string, then strings have a `count` function that we can use to count the 1s. If we xor the two arrays together, then every time there's a difference the Xor result will have a `1` at that position.

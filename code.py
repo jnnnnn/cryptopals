@@ -52,10 +52,9 @@ def bestxor(s: bytes):
     return candidates[0]
 
 
-plain = """Burning 'em, if you ain't quick and nimble
-I go crazy when I hear a cymbal"""
+b1s = b"this is a test"
+b2s = b"wokka wokka!!!"
 
-key = "ICE"
-
-cipher = xor(plain.encode('utf-8'), key.encode('utf-8'))
-print(jhex(cipher))
+hammingdist = sum(bin(n).count("1") for n in xor(b1s, b2s))
+print(hammingdist)
+# 37. yay.
