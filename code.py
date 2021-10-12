@@ -65,6 +65,17 @@ def crackXorRepeat(cipher: bytes):
             nh, keysize = nicer, ks
     print(f"Best keysize is {keysize}")
 
+    for keysize in range(2, 40):
+        key = b''
+        for keyindex in range(keysize):
+            partcipher = b"".join([cipher[i:i+1]
+                                   for i in range(keyindex, len(cipher), keysize)])
+            bestguess = bestxor(partcipher)
+            key += bytes([bestguess.key])
+            print(f"Bestguess for keychar {keyindex} is {bestguess.msg}")
+
+        print(f"Best key guess is {key}")
+
 
 def loadbase64file(fname: str):
     import base64

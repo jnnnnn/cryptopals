@@ -74,3 +74,9 @@ Computing hamming distance between two byte arrays. Google for `bit difference p
 implementing the repeating key part.
 
 load base64 file. google `python load base64 file`. [result](https://www.kite.com/python/examples/3422/base64-decode-a-%60base64%60-file). copy/paste lmao.
+
+ok, best key guess is 5. but that didn't work. Meh. try every keysize. ah, there's one:
+
+    Best key guess is b'Terminator X: Bring the noise'
+
+done.
