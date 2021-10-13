@@ -126,3 +126,10 @@ let's try decoding it with the key from the previous exercise. no luck. I guess 
 
 ### Exercise 9: Implement PKCS#7 padding
 
+well, that was easy.
+
+### Exercise 10: Implement CBC mode
+
+Implement encrypt. Not sure if correct; when to xor things ? oh well. If decrypt works, can use it to test encrypt.
+
+For decrypt, when to XOR things ? NOt sure. Also not sure if pycryptodome's AES ECB cipher is good or not. Test it. Yes, it does seem to be stateless; encrypting the same 16 bytes twice results in the same output. Yay.

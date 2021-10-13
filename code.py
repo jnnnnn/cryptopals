@@ -94,4 +94,29 @@ def AesDecrypt(ciphertext: bytes):
 def pkcs7pad(block: bytes, blocksize: int):
     return block + b'\x04'*(blocksize - len(block)%blocksize)
 
-print(pkcs7pad(b'yellow submarine', 20))
+def AesCbcEncrypt(key: bytes, plaintext: bytes):
+    prev = b'\x00'*16
+    plaintext = pkcs7pad(plaintext, 16)
+    cipher = AES.new(key, AES.MODE_ECB)
+    result = b''
+    blocksize = 16
+    for block in [plaintext[i*blocksize:(i+1)*blocksize] for i in range(len(plaintext) // blocksize)]:
+        block = xor(prev, block)
+        new = cipher.encrypt(xor(prev, block))
+        result = result + new
+        prev = new
+
+
+def AesCbcDecrypt(key: bytes, ciphertext: bytes, IV: bytes=b'\x00'*16):
+    prev = b'\x00'*16
+    cipher = AES.new(key, AES.MODE_ECB)
+    result = b''
+    blocksize = 16
+    for block in [ciphertext[i*blocksize:(i+1)*blocksize] for i in range(len(ciphertext)//blocksize)]:
+        pass
+
+# plaintext = AesCbcDecrypt(b'YELLOW SUBMARINE', loadbase64file('data-ex10.txt'))
+
+cipher = AES.new(b'YELLOW SUBMARINE', AES.MODE_ECB)
+print(cipher.encrypt(b'GREENY SUBMARINE'))
+print(cipher.encrypt(b'GREENY SUBMARINE'))
