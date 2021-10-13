@@ -91,18 +91,7 @@ def AesDecrypt(ciphertext: bytes):
     plaintext = cipher.decrypt(ciphertext)
     return plaintext.decode("utf-8", errors="replace")
 
-with open("data-ex8.txt", 'r') as f:
-    for i, line in enumerate(f.read().split()):
-        bs = unhex(line)
-        blocks = set()
-        for chunksize in range(2, 40):
-            repeats = 0
-            for block in [bs[i*chunksize:(i+1)*chunksize] for i in range(len(bs)//chunksize)]:
-                if block in blocks:
-                    repeats += 1
-                    break
-                else:
-                    blocks.add(block)
-            if repeats:
-                print(f"line {i} repeated at {chunksize}, {repeats} times")
-        
+def pkcs7pad(block: bytes, blocksize: int):
+    return block + b'\x04'*(blocksize - len(block)%blocksize)
+
+print(pkcs7pad(b'yellow submarine', 20))

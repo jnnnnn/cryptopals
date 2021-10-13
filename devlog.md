@@ -119,3 +119,10 @@ Oh, I get it now. ECB doesn't depend on previous blocks, there's no chaining. So
 OK, so search for repeats. ah.
 
     line 132 repeated at 16, 1 times
+
+let's try decoding it with the key from the previous exercise. no luck. I guess it's a mystery.
+
+## Set 2: Block ciphers 1
+
+### Exercise 9: Implement PKCS#7 padding
+
