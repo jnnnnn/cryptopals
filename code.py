@@ -83,11 +83,13 @@ def loadbase64file(fname: str):
         return base64.b64decode(f.read())
 
 
+
+def AesDecrypt(ciphertext: bytes):
+    from Crypto.Cipher import AES
+    key = b'YELLOW SUBMARINE'
+    cipher = AES.new(key, AES.MODE_ECB)
+    plaintext = cipher.decrypt(ciphertext)
+    return plaintext.decode("utf-8", errors="replace")
+
 ciphertext = loadbase64file('data-ex7.txt')
-
-from Crypto.Cipher import AES
-key = b'YELLOW SUBMARINE'
-cipher = AES.new(key, AES.MODE_ECB)
-plaintext = cipher.decrypt(ciphertext)
-print(plaintext.decode("utf-8", errors="replace"))
-
+print(ciphertext.hex()[:16])

@@ -99,3 +99,11 @@ OK, need to decrypt AES. check [library docs](https://cryptography.io/en/latest/
     TypeError: object of type 'EcbMode' has no len()
 
 derp, called `cipher` and `ciphertext` the same variable name. fixed. working.
+
+## Exercise 8: AES ECB detection
+
+> Remember that the problem with ECB is that it is stateless and deterministic; the same 16 byte plaintext block will always produce the same 16 byte ciphertext.
+
+I don't quite understand this. Am I supposed to know what the first 16 bytes of the plaintext is? The last few cyphertexts have always been the same... the first few bytes are `I'm back and I'm ringin' the bell\nA rockin' on the mike while the fly girls yell`
+
+The first bytes of ex7 cyphertext encoded as hex are `091230aade3eb330`. That doesn't appear in the ex8 file.
