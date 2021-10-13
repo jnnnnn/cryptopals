@@ -83,13 +83,26 @@ def loadbase64file(fname: str):
         return base64.b64decode(f.read())
 
 
+from Crypto.Cipher import AES
 
 def AesDecrypt(ciphertext: bytes):
-    from Crypto.Cipher import AES
     key = b'YELLOW SUBMARINE'
     cipher = AES.new(key, AES.MODE_ECB)
     plaintext = cipher.decrypt(ciphertext)
     return plaintext.decode("utf-8", errors="replace")
 
-ciphertext = loadbase64file('data-ex7.txt')
-print(ciphertext.hex()[:16])
+with open("data-ex8.txt", 'r') as f:
+    for i, line in enumerate(f.read().split()):
+        bs = unhex(line)
+        blocks = set()
+        for chunksize in range(2, 40):
+            repeats = 0
+            for block in [bs[i*chunksize:(i+1)*chunksize] for i in range(len(bs)//chunksize)]:
+                if block in blocks:
+                    repeats += 1
+                    break
+                else:
+                    blocks.add(block)
+            if repeats:
+                print(f"line {i} repeated at {chunksize}, {repeats} times")
+        

@@ -107,3 +107,15 @@ derp, called `cipher` and `ciphertext` the same variable name. fixed. working.
 I don't quite understand this. Am I supposed to know what the first 16 bytes of the plaintext is? The last few cyphertexts have always been the same... the first few bytes are `I'm back and I'm ringin' the bell\nA rockin' on the mike while the fly girls yell`
 
 The first bytes of ex7 cyphertext encoded as hex are `091230aade3eb330`. That doesn't appear in the ex8 file.
+
+Maybe the plaintext block is all nulls? Encrypt 16 bytes of 0 with a couple of different keys. No matches.
+
+Google `detect aes ecb`. Lots of cryptopals solutions :(. In particular, [this one](https://stackoverflow.com/a/20723807/412529):
+
+> with the assumption that some repeated plaintext blocks occur at the same ciphertext block offsets, we can simply go ahead and look for repeated ciphertext blocks of various lengths. 
+
+Oh, I get it now. ECB doesn't depend on previous blocks, there's no chaining. So each 16-byte block may as well have been encrypted on its own. So there might be repeated blocks. 
+
+OK, so search for repeats. ah.
+
+    line 132 repeated at 16, 1 times
