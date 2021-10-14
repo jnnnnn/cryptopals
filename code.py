@@ -1,3 +1,5 @@
+import difflib
+from Crypto.Cipher import AES
 from dataclasses import dataclass
 import codecs
 import itertools
@@ -77,13 +79,11 @@ def crackXorRepeat(cipher: bytes):
         print(f"Best key guess is {key} (score: {niceness})")
 
 
-def loadbase64file(fname: str):
+def loadbase64file(fname: str) -> bytes:
     import base64
     with open(fname, "r") as f:
         return base64.b64decode(f.read())
 
-
-from Crypto.Cipher import AES
 
 def AesDecrypt(ciphertext: bytes):
     key = b'YELLOW SUBMARINE'
@@ -91,32 +91,39 @@ def AesDecrypt(ciphertext: bytes):
     plaintext = cipher.decrypt(ciphertext)
     return plaintext.decode("utf-8", errors="replace")
 
+
 def pkcs7pad(block: bytes, blocksize: int):
-    return block + b'\x04'*(blocksize - len(block)%blocksize)
+    return block + b'\x04'*(blocksize - len(block) % blocksize)
 
-def AesCbcEncrypt(key: bytes, plaintext: bytes):
-    prev = b'\x00'*16
-    plaintext = pkcs7pad(plaintext, 16)
+
+def AesCbcEncrypt(key: bytes, plaintext: bytes) -> bytes:
+    blocksize = len(key)
+    plaintext = pkcs7pad(plaintext, blocksize)
     cipher = AES.new(key, AES.MODE_ECB)
-    result = b''
-    blocksize = 16
-    for block in [plaintext[i*blocksize:(i+1)*blocksize] for i in range(len(plaintext) // blocksize)]:
-        block = xor(prev, block)
-        new = cipher.encrypt(xor(prev, block))
-        result = result + new
-        prev = new
+    ciphertext = b''
+    prev = b'\x00'*blocksize
+    for i in range(len(plaintext) // blocksize):
+        plainblock = plaintext[i*blocksize: (i+1)*blocksize]
+        cipherblock = cipher.encrypt(xor(prev, plainblock))
+        ciphertext += cipherblock
+        prev = cipherblock
+    return ciphertext
 
 
-def AesCbcDecrypt(key: bytes, ciphertext: bytes, IV: bytes=b'\x00'*16):
-    prev = b'\x00'*16
+def AesCbcDecrypt(key: bytes, ciphertext: bytes) -> bytes:
+    blocksize = len(key)
     cipher = AES.new(key, AES.MODE_ECB)
-    result = b''
-    blocksize = 16
-    for block in [ciphertext[i*blocksize:(i+1)*blocksize] for i in range(len(ciphertext)//blocksize)]:
-        pass
+    plaintext = b''
+    prev = b'\x00'*blocksize
+    for i in range(len(ciphertext)//blocksize):
+        cipherblock = ciphertext[i*blocksize: (i+1)*blocksize]
+        plainblock = xor(cipher.decrypt(cipherblock), prev)
+        plaintext += plainblock
+        prev = cipherblock
+    return plaintext.strip(b'\x04')
 
-# plaintext = AesCbcDecrypt(b'YELLOW SUBMARINE', loadbase64file('data-ex10.txt'))
 
-cipher = AES.new(b'YELLOW SUBMARINE', AES.MODE_ECB)
-print(cipher.encrypt(b'GREENY SUBMARINE'))
-print(cipher.encrypt(b'GREENY SUBMARINE'))
+ciphertext = loadbase64file('data-ex10.txt')
+plaintext = AesCbcDecrypt(b'YELLOW SUBMARINE', ciphertext)
+ciphertext2 = AesCbcEncrypt(b'YELLOW SUBMARINE', plaintext)
+assert ciphertext == ciphertext2

@@ -147,4 +147,4 @@ So to decrypt, we undo F (i.e. `AES_ECB.decrypt`) and then XOR with the previous
     plaintext_1 = F'(ciphertext_1) xor ciphertext_0
     ...
 
-OK, writing out the formula like that makes the code much easier to write. Decrypt works. Use it to test encrypt. Fail.
+OK, writing out the formula like that makes the code much easier to write. Decrypt works. Use it to test encrypt. Fail. Try difflib to work out the difference. Wow, it sucks, it can't handle arbitrary bytes, even though it has a `diff_bytes` function. That's pretty dumb. Print bytes and compare by eye. Oh, need to strip padding before reencrypting. OK, working.
