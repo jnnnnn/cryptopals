@@ -84,6 +84,7 @@ done.
 ## Exercise 7: AES
 
 Ugh, aes in python is a pain. What's the library these days? google `python aes library`. Choices seem to include:
+
 1. Pycryptodome (first google link)
 2. Cryptography (recommended by [stackoverflow](https://stackoverflow.com/questions/25261647/python-aes-encryption-without-extra-module))
 3. Pycrypto (official docs used to recommend)
@@ -112,9 +113,9 @@ Maybe the plaintext block is all nulls? Encrypt 16 bytes of 0 with a couple of d
 
 Google `detect aes ecb`. Lots of cryptopals solutions :(. In particular, [this one](https://stackoverflow.com/a/20723807/412529):
 
-> with the assumption that some repeated plaintext blocks occur at the same ciphertext block offsets, we can simply go ahead and look for repeated ciphertext blocks of various lengths. 
+> with the assumption that some repeated plaintext blocks occur at the same ciphertext block offsets, we can simply go ahead and look for repeated ciphertext blocks of various lengths.
 
-Oh, I get it now. ECB doesn't depend on previous blocks, there's no chaining. So each 16-byte block may as well have been encrypted on its own. So there might be repeated blocks. 
+Oh, I get it now. ECB doesn't depend on previous blocks, there's no chaining. So each 16-byte block may as well have been encrypted on its own. So there might be repeated blocks.
 
 OK, so search for repeats. ah.
 
@@ -133,3 +134,17 @@ well, that was easy.
 Implement encrypt. Not sure if correct; when to xor things ? oh well. If decrypt works, can use it to test encrypt.
 
 For decrypt, when to XOR things ? NOt sure. Also not sure if pycryptodome's AES ECB cipher is good or not. Test it. Yes, it does seem to be stateless; encrypting the same 16 bytes twice results in the same output. Yay.
+
+Read wikipedia's [Block cipher](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation) article. CBC mode formula is:
+
+    ciphertext_0 = F(IV xor plaintext_0)
+    ciphertext_1 = F(ciphertext_0 xor plaintext_1)
+    ...
+
+So to decrypt, we undo F (i.e. `AES_ECB.decrypt`) and then XOR with the previous ciphertext:
+
+    plaintext_0 = F'(ciphertext_0) xor IV
+    plaintext_1 = F'(ciphertext_1) xor ciphertext_0
+    ...
+
+OK, writing out the formula like that makes the code much easier to write. Decrypt works. Use it to test encrypt. Fail.
